@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\WatchLatersController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,4 +29,10 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/contents/{id}',[App\Http\Controllers\Api\ContentController::class,'destroy']);
 
     Route::get('/contents/user/{id}',[App\Http\Controllers\Api\ContentController::class,'showContentbyUser']);
+
+    Route::get('/watch_laters', [App\Http\Controllers\Api\WatchLatersController::class, 'index']);
+    Route::post('/watch_laters', [App\Http\Controllers\Api\WatchLatersController::class, 'store']);
+    Route::get('/watch_laters/{id}', [App\Http\Controllers\Api\WatchLatersController::class, 'show']);
+    Route::delete('/watch_laters/{id}', [App\Http\Controllers\Api\WatchLatersController::class, 'destroy']);
+    Route::get('/watch_laters/user/{id}',[App\Http\Controllers\Api\WatchLatersController::class, 'showWatchLaterbyUser']);
 });
