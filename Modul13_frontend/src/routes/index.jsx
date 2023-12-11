@@ -1,30 +1,34 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import UserLayout from "../layouts/UserLayout";
-import LoginPage from "../pages/auth/LoginPage";
-import RegisterPage from "../pages/auth/RegisterPage";
-import DashboardPage from "../pages/DashboardPage";
-import ContentPage from "../pages/ContentPage";
-import ProtectedRoutes from "./ProtectedRoutes";
+// AppRouter.js
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import UserLayout from '../layouts/UserLayout';
+import LoginPage from '../pages/auth/LoginPage';
+import RegisterPage from '../pages/auth/RegisterPage';
+import DashboardPage from '../pages/DashboardPage';
+import ContentPage from '../pages/ContentPage';
+import WatchLaterPage from '../pages/WatchLaterPage'; // Import WatchLaterPage
+import ProtectedRoutes from './ProtectedRoutes';
+
 const router = createBrowserRouter([
   {
-    path: "*",
+    path: '*',
     element: <div>Routes Not Found!</div>,
   },
   {
     children: [
       {
-        path: "/",
+        path: '/',
         element: <LoginPage />,
       },
       {
-        path: "/register",
+        path: '/register',
         element: <RegisterPage />,
       },
     ],
   },
   {
-    path: "/user",
+    path: '/user',
     element: (
       <ProtectedRoutes>
         <UserLayout />
@@ -32,16 +36,21 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/user",
+        path: '/user',
         element: <DashboardPage />,
       },
       {
-        path: "/user/content",
+        path: '/user/content',
         element: <ContentPage />,
+      },
+      {
+        path: '/user/watch-later', // Tambahkan rute Watch Later
+        element: <WatchLaterPage />,
       },
     ],
   },
 ]);
+
 const AppRouter = () => {
   return (
     <>
@@ -61,5 +70,5 @@ const AppRouter = () => {
     </>
   );
 };
+
 export default AppRouter;
-  

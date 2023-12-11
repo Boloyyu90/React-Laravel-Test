@@ -10,16 +10,17 @@ const TopNavbar = ({ routes }) => {
     sessionStorage.removeItem("user");
     navigate("/");
   };
+
   return (
     <Navbar fixed="top" collapseOnSelect expand="lg">
       <Container>
         <Navbar.Brand
           style={{ cursor: "pointer" }}
           onClick={() => navigate("/")}
-          tabIndex={0} // agar bisa diakses dengan keyboard
+          tabIndex={0}
         >
           <div className="d-flex align-items-center">
-            <img src={imgAH} height="50" className="d-inline-block align-top" />
+            <img src={imgAH} height="50" className="d-inline-block align-top" alt="AtmaHub" />
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -37,7 +38,6 @@ const TopNavbar = ({ routes }) => {
                 </Button>
               </Nav.Link>
             ))}
-
             {/* Log out */}
             <Nav.Link onClick={logout}>
               <Button variant="danger" className="w-100">
@@ -50,4 +50,6 @@ const TopNavbar = ({ routes }) => {
     </Navbar>
   );
 };
+
 export default TopNavbar;
+

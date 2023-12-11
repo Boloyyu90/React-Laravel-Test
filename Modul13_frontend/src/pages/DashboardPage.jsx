@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Spinner, Stack } from "react-bootstrap";
 import { GetAllContents } from "../api/apiContent";
 import { getThumbnail } from "../api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
 const DashboardPage = () => {
   const [contents, setContents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +18,24 @@ const DashboardPage = () => {
         console.log(err);
       });
   }, []);
+
+  const handleAddToWatchLater = (content) => {
+    if (content.inWatchLater) {
+      alert('Content already in your Watch Later List');
+    } else if (content.userId === loggedInUserId) {
+      alert("Can't add your own content to Watch Later");
+    } else {
+
+      addToWatchLater(content.id)
+        .then(() => {
+          alert('Added to Your Watch List');
+          history.push('/watch-later');
+        })
+        .catch((error) => {
+          console.error('Error adding to watch later:', error);
+        });
+    }
+  };
   return (
     <Container className="mt-4">
       <Stack direction="horizontal" gap={3} className="mb-3">
@@ -50,6 +70,12 @@ const DashboardPage = () => {
                 <div className="card-body">
                   <h5 className="card-title text-truncate">{content.title}</h5>
                   <p className="card-text">{content.description}</p>
+                   <FontAwesomeIcon
+                    icon={faClock}
+                    className="me-2 text-warning"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleAddToWatchLater(content)}
+                  />
                 </div>
               </div>
             </Col>
